@@ -110,15 +110,14 @@
 
 .disabled {
 	cursor: default;
-	opacity: .4;
 }
 
-article a {
+section a {
 	color: #00b5ef;
 	text-decoration: none;
 }
 
-article a:hover, article a:focus {
+section a:hover, section a:focus {
 	text-decoration: underline;
 }
 
@@ -128,7 +127,6 @@ article a:hover, article a:focus {
 }
 
 .is-sticky {
-
 	box-shadow: 0px 2px 4px 0px rgba( 0, 0, 0, 0.2 );
 }
 
