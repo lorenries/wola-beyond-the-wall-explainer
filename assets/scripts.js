@@ -66,18 +66,29 @@ function popup() {
         var contentContainer = document.querySelector('#content-container')
 		var navLinks = document.querySelectorAll('.js-link-interrupt');
 		var intro = document.querySelector('#intro');
-        
-        var wallContent = '';
-        var wallTitle = 'The Border Wall';
 
-        var bpContent = '';
-        var bpTitle = 'Increasing Border Patrol';
-
-        var iceContent = '';
-        var iceTitle = 'Increasing the ICE Deportation Force'
-
-        var dacaContent = '';
-        var dacaTitle = 'Rescinding DACA';
+        var content = {
+            'wall': {
+                'html': '',
+                'glance': '',
+                'title': 'The Border Wall'
+            },
+            'bp': {
+                'html': '',
+                'glance': '',
+                'title': 'Increasing Border Patrol'
+            },
+            'ice': {
+                'html': '',
+                'glance': '',
+                'title': 'Increasing the ICE Deportation Force'
+            },
+            'daca': {
+                'html': '',
+                'glance': '',
+                'title': 'Rescinding DACA'
+            }
+        };
 
 
         for (var i = 0; i < data.length; i++) {
@@ -94,33 +105,33 @@ function popup() {
             if (data[i].category === 'wall') {
 
             	if (data[i].title === 'At a Glance') {
-            	  var wallGlance = data[i].content;
+            	  content.wall.glance = data[i].content;
             	} else {
-            		wallContent += wrapper;
+            		content.wall.html += wrapper;
             	}
 
             } else if (data[i].category === 'bp') {
 
             	if (data[i].title === 'At a Glance') {
-            	  var bpGlance = data[i].content;
+            	  content.bp.glance = data[i].content;
             	} else {
-            		bpContent += wrapper;
+            		content.bp.html += wrapper;
             	}
 
             } else if (data[i].category === 'ice') {
 
             	if (data[i].title === 'At a Glance') {
-            	  var iceGlance = data[i].content;
+            	  content.ice.glance = data[i].content;
             	} else {
-            		iceContent += wrapper;
+            		content.ice.html += wrapper;
             	}
 
             } else {
 
             	if (data[i].title === 'At a Glance') {
-            	  var dacaGlance = data[i].content;
+            	  content.daca.glance = data[i].content;
             	} else {
-            		dacaContent += wrapper;
+            		content.daca.html += wrapper;
             	}
 
             }
@@ -143,7 +154,7 @@ function popup() {
 			`
         }
 
-        contentContainer.innerHTML = generateHtml(wallTitle, wallGlance, wallContent);
+        contentContainer.innerHTML = generateHtml(content.wall.title, content.wall.glance, content.wall.html);
         contentContainer.setAttribute('data-category', 'wall');
 
         popup();
@@ -160,19 +171,19 @@ function popup() {
             e.preventDefault();
             if (e.target.hash === '#bp' && contentContainer.getAttribute('data-category') != 'bp') {
 
-                changeContent(e, bpTitle, bpGlance, bpContent, 'bp');
+                changeContent(e, content.bp.title, content.bp.glance, content.bp.html, 'bp');
 
             } else if (e.target.hash === '#wall' && contentContainer.getAttribute('data-category') != 'wall') {
             	
-            	changeContent(e, wallTitle, wallGlance, wallContent, 'wall');
+            	changeContent(e, content.wall.title, content.wall.glance, content.wall.html, 'wall');
 
             } else if (e.target.hash === '#ice' && contentContainer.getAttribute('data-category') != 'ice') {
 
-            	changeContent(e, iceTitle, iceGlance, iceContent, 'ice');
+            	changeContent(e, content.ice.title, content.ice.glance, content.ice.html, 'ice');
 
             } else if (e.target.hash === '#daca' && contentContainer.getAttribute('data-category') != 'daca') {
 
-            	changeContent(e, dacaTitle, dacaGlance, dacaContent, 'daca');
+            	changeContent(e, content.daca.title, content.daca.glance, content.daca.html, 'daca');
             }
         }
 
