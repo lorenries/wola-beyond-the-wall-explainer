@@ -15,7 +15,6 @@ function popup() {
     var popup = document.querySelector('.js-popup');
     var popupClose = document.querySelector('.js-close-popup');
     var footerHeight = document.querySelector('footer').offsetHeight;
-    var intro = document.querySelector('#intro');
 
     function scrollFn() {
 
@@ -66,6 +65,7 @@ function popup() {
 
         var contentContainer = document.querySelector('#content-container')
 		var navLinks = document.querySelectorAll('.js-link-interrupt');
+		var intro = document.querySelector('#intro');
         
         var wallContent = '';
         var wallTitle = 'The Border Wall';
@@ -143,18 +143,46 @@ function popup() {
 			`
         }
 
-
         contentContainer.innerHTML = generateHtml(wallTitle, wallGlance, wallContent);
         contentContainer.setAttribute('data-category', 'wall');
 
         popup();
 
-        addEventListenerList(navLinks, 'click', changeContent)
+        addEventListenerList(navLinks, 'click', routeLinks)
 
         function addEventListenerList(list, event, fn) {
             for (var i = 0, len = list.length; i < len; i++) {
                 list[i].addEventListener(event, fn, false);
             }
+        }
+
+        function routeLinks(e) {
+            e.preventDefault();
+            if (e.target.hash === '#bp' && contentContainer.getAttribute('data-category') != 'bp') {
+
+                changeContent(e, bpTitle, bpGlance, bpContent, 'bp');
+
+            } else if (e.target.hash === '#wall' && contentContainer.getAttribute('data-category') != 'wall') {
+            	
+            	changeContent(e, wallTitle, wallGlance, wallContent, 'wall');
+
+            } else if (e.target.hash === '#ice' && contentContainer.getAttribute('data-category') != 'ice') {
+
+            	changeContent(e, iceTitle, iceGlance, iceContent, 'ice');
+
+            } else if (e.target.hash === '#daca' && contentContainer.getAttribute('data-category') != 'daca') {
+
+            	changeContent(e, dacaTitle, dacaGlance, dacaContent, 'daca');
+            }
+        }
+
+        function changeContent(e, title, glance, content, attr) {
+        	resetLinkClasses(navLinks);
+        	contentContainer.innerHTML = generateHtml(title, glance, content);
+        	contentContainer.setAttribute('data-category', attr);
+        	setYPosition(intro);
+        	e.target.classList.add('disabled', 'wola-blue');
+        	e.target.classList.remove('hover-wola-blue', 'wola-gray');
         }
 
         function resetLinkClasses(list) {
@@ -166,59 +194,12 @@ function popup() {
 
         function setYPosition(el) {
         	var yPos = getYCoord(el);
-        	console.log(yPos)
         	window.scrollTo(0, yPos);
         }
 
         function getYCoord(el) {
-          
           let box = el.getBoundingClientRect();
-
           return box.bottom + pageYOffset;
-            // left: box.left + pageXOffset
-        }
-
-        function changeContent(e) {
-
-            e.preventDefault();
-
-            if (e.target.hash === '#bp' && contentContainer.getAttribute('data-category') != 'bp') {
-
-                resetLinkClasses(navLinks);
-                contentContainer.innerHTML = generateHtml(bpTitle, bpGlance, bpContent);
-                contentContainer.setAttribute('data-category', 'bp');
-                setYPosition(intro);
-                e.target.classList.add('disabled', 'wola-blue');
-                e.target.classList.remove('hover-wola-blue', 'wola-gray');
-
-            } else if (e.target.hash === '#wall' && contentContainer.getAttribute('data-category') != 'wall') {
-            	
-            	resetLinkClasses(navLinks);
-            	contentContainer.innerHTML = generateHtml(wallTitle, wallGlance, wallContent);
-                contentContainer.setAttribute('data-category', 'wall');
-                setYPosition(intro);
-                e.target.classList.add('disabled', 'wola-blue');
-                e.target.classList.remove('hover-wola-blue', 'wola-gray');
-
-            } else if (e.target.hash === '#ice' && contentContainer.getAttribute('data-category') != 'ice') {
-
-            	resetLinkClasses(navLinks);
-            	contentContainer.innerHTML = generateHtml(iceTitle, iceGlance, iceContent);
-                contentContainer.setAttribute('data-category', 'ice');
-                setYPosition(intro);
-                e.target.classList.add('disabled', 'wola-blue');
-                e.target.classList.remove('hover-wola-blue', 'wola-gray');
-
-            } else if (e.target.hash === '#daca' && contentContainer.getAttribute('data-category') != 'daca') {
-
-            	resetLinkClasses(navLinks);
-            	contentContainer.innerHTML = generateHtml(dacaTitle, dacaGlance, dacaContent);
-                contentContainer.setAttribute('data-category', 'daca');
-                setYPosition(intro);
-                e.target.classList.add('disabled', 'wola-blue');
-                e.target.classList.remove('hover-wola-blue', 'wola-gray');
-
-            }
         }
 
     }
