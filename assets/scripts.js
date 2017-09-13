@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     feather.replace({ "height": "1em", "width": "1em" });
 
-// Initialize position: sticky polyfill  
+// Initialize polyfill for 'position: sticky'
 
     new StickyState(document.querySelectorAll('.sticky'));
 
