@@ -49,6 +49,18 @@ function popup() {
 
 }
 
+// add event listener so anchors open in new taps
+
+document.body.addEventListener('click', function(e) {
+
+    if (e.target && e.target.matches('a')) {
+
+        e.target.setAttribute('target', 'blank')
+        e.target.setAttribute('rel', 'noopener')
+    }
+
+}, false)
+
 // Content Logic Here
 
     var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1OzEKDJnRVACx7eL-dF820sW1uF0fllI48l1Jbpo9j5I/edit?usp=sharing';
