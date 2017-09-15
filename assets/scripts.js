@@ -78,6 +78,7 @@ document.body.addEventListener('click', function(e) {
         var contentContainer = document.querySelector('#content-container')
 		var navLinks = document.querySelectorAll('.js-link-interrupt');
 		var intro = document.querySelector('#intro');
+        var timestamp = document.querySelector('.js-timestamp');
 
         var content = {
             'wall': {
@@ -138,7 +139,7 @@ document.body.addEventListener('click', function(e) {
             		content.ice.html += wrapper;
             	}
 
-            } else {
+            } else if (data[i].category === 'daca') {
 
             	if (data[i].title === 'At a Glance') {
             	  content.daca.glance = data[i].content;
@@ -146,6 +147,8 @@ document.body.addEventListener('click', function(e) {
             		content.daca.html += wrapper;
             	}
 
+            } else if (data[i].category === 'timestamp') {
+                timestamp.innerHTML = data[i].content;
             }
 
         }
